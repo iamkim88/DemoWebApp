@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (isConnect == false) {
-            new CustomAlertDialog(this).makeCustomDialog("커밋 테스트.", "확인");
+            new CustomAlertDialog(this).makeCustomDialog("통신 네크워크 확인.", "확인");
 
         }
     }
