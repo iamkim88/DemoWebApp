@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (isConnect == false) {
-            new CustomAlertDialog(this).makeCustomDialog("통신 네크워크 확인.", "확인");
+            new CustomAlertDialog(this).makeCustomDialog("휴대폰의 인터넷 연결상태를 확인해주세요.", "확인");
 
         }
     }
