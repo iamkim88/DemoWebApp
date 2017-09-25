@@ -5,19 +5,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 /**
- * 다이얼로그 커스텀 객체
+ * 커스텀 다이얼로그 생성 클래스
  * Created by kim on 2017. 9. 22..
  */
 
 public class CustomAlertDialog extends Activity{
-    Context context;
+    private Context context;
 
     //생성자
     CustomAlertDialog(Context context){
         this.context = context;
     }
 
-    //다이얼로그 객체 생성
+    //다이얼로그 생성 & 노출
     void makeCustomDialog(String  message, String yBtn){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(message);

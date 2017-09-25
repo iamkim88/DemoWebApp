@@ -3,6 +3,7 @@ package com.example.kim.demowebapp;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -13,8 +14,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.demoWebView) WebView demoWebView;
-
-    private long pressedTime = 0;
+    private Long pressedTime = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,23 +51,23 @@ public class MainActivity extends AppCompatActivity {
         demoWebView.loadUrl("file:///android_asset/index.html");
     }
 
-
     @Override
     public void onBackPressed() {
 
-        //0 = Short, 1 = Long
-        new CustomToast(this).makeCustomToast("한번더 클릭하면 종료됩니다.", 1);
-        //default 0
-        if (pressedTime == 0) {
+        new CustomToast(this).makeCustomToast("한번 더 클릭하면 종료됩니다.", 1);
+
+        //default 0L
+        if (pressedTime == 0L) {
             pressedTime = System.currentTimeMillis();
         } else {
             int seconds = (int) (System.currentTimeMillis() - pressedTime);
 
             if (seconds > 2000) {
-                pressedTime = 0;
+                pressedTime = 0L;
             } else {
                 finish();
             }
         }
     }
+
 }
