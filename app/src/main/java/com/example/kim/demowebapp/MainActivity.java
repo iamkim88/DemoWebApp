@@ -33,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
         Boolean isConnect = new  NetworkStatus(getApplicationContext()).isNetworkStatus();
 
 
-   /*     if(isConnect == false){
-            new CustomAlertDialog(this).makeCustomDialog("휴대폰의 인터넷 연결상태를 확인해주세요.","확인");
+        if (isConnect == false) {
+            new CustomAlertDialog(this).makeCustomDialog("커밋 테스트.", "확인");
 
-        }*/
+        }
     }
 
 
