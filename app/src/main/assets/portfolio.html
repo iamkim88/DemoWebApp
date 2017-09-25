@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<title>TwoSonSoft</title>
+	<link rel="stylesheet" href="./css/custom.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+</head>
+<body onLoad="worksListAll();">
+	
+	<div id="wrap">
+		<!-- 왼쪽 사이드 메뉴 -->
+
+		<!-- 왼쪽 사이드 메뉴 //-->
+		
+		<div id="container">
+			<!-- HEADER -->
+			<header id="header">
+				<div class="wrap-header">
+					<a href="#" class="btn-all-menu"><span class="iconfont-menu"> </span></a>
+					<a href="/android_asset/index.html" class="logo">두손소프트</a>
+				</div>
+			</header>			
+			<!-- HEADER // -->
+			<!-- SECTION -->
+			<section id="contents" class="portfolio">
+				<!-- VISUAL-->
+				<div class="visual">
+					<h1>PORTFOLIO</h1>
+					<h3>프로젝트</h3>
+				</div>
+				<!-- VISUAL //-->
+
+				<!-- CONTENT -->
+				<div class="content">
+					<div id="worksListAll">
+						<ul id="worksListAllUl" class="list">
+							
+						</ul>
+					</div>
+					<div class="more">
+						<div>
+							<a class="more_link">more +</a>
+						</div>
+					</div>
+				</div>
+				<!-- CONTENT -->
+
+			</section>
+			<!-- SECTION //-->
+
+			<!-- FOOTER -->
+
+			<!-- FOOTER //-->
+
+		</div><!-- container -->
+		
+	</div><!-- wrap -->
+	<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+
+<!--  policy_layer_popup -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#wrap").append($('<div>').load('nav_menu.html'));
+	});
+
+</script>
+<!--  policy_layer_popup // -->
+
+<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	var startNum = 0;
+	var sNum = startNum * 15;
+	var ajaxUrl = '/portfolio/worksListAll.do';
+
+	function worksListAll(){
+		$.ajax({
+       		type: 'GET',
+       		url: ajaxUrl,
+       		data: {'sNum':sNum},
+       		async: false,
+       		dataType: 'json',
+       		cache: false,
+       		success: function(obj){
+			var portfolioDataList = obj.list;
+			var appendData = "";
+			
+			var portfolioClass = "";
+			var portfolioNo = "";
+			var portfolioRegDate = "";
+			var portfolioTitle = "";
+			var portfolioShortCont = "";
+			var portfolioImage = "";
+			
+			if(startNum <= 0){
+				$('#worksListAllUl').empty();	
+			}
+			
+			if(portfolioDataList.length > 0){
+				$.each(portfolioDataList, function(index, portfolio){
+					
+					portfolioClass = portfolio.bClass;
+					portfolioNo = portfolio.bNo;
+					portfolioRegDate = portfolio.bRegdate;
+					portfolioTitle = portfolio.bTitle;
+					portfolioShortCont = portfolio.shortCont;
+					portfolioImage = portfolio.titleImg;
+					
+					appendData  = appendData
+					+	'<li class="pf-list-item">'
+					+	'  <div class="imgTitleWrapper" onClick="slideEvent('+portfolioNo+','+portfolioClass+')">'
+					+	'    <img src="' + portfolioImage + '" alt="' + portfolioTitle + '">'
+					+	'    <p class="pftit_txt">'
+					+	'      <span>' + portfolioTitle + '</span>'
+					+	'      ' + portfolioShortCont
+					+	'    </p>'
+					+	'  </div>'
+					+	'  <div class="myToggle" style="display: none;"></div>'
+					+	'</li>';
+					
+				})//end for
+				
+				$(appendData).appendTo('#worksListAllUl');
+				
+				startNum += 1;
+				sNum = startNum * 15;
+				
+				$('div.more').empty();
+            		if(sNum<obj.cnt){
+            			$('<div onClick="worksListAll()"><a class="more_link">more + </a></div>').appendTo('div.more');
+            		}
+			}//portfolioDataList end if
+		}
+	});
+	}
+	
+	
+</script>
+
+<script type="text/javascript">
+
+var index = "";
+
+function slideEvent(bufNo, bufClass){
+	$.ajax({
+		type: 'GET',
+		url: "/portfolio/worksRead.do",
+		data: {'menuType':bufClass, 'b_no':bufNo},
+		async: false,
+		dataType: 'json',
+		cache: false,
+		success: function(obj){
+						
+			var appendData = "";
+			var portfolioData = obj.list;
+			
+			var client = "";
+			var open = "";
+			var category = "";
+			var description1 = "";
+			var description2 = "";
+		
+			
+			if(portfolioData.length>0){	
+				$.each(portfolioData, function(i, val) {
+					
+					$("#hiddenData").empty();
+					
+					appendData = val.bContent;
+					appendData = appendData.replace(/&lt;/g, "<");
+					appendData = appendData.replace(/&gt;/g, ">");
+					appendData = appendData.replace(/src/gi, 'tsrc');		
+					
+					$('#hiddenData').html(appendData);
+					var tdArray = $('#hiddenData').find('tr > td');
+					
+					client 		= tdArray[0].innerText;
+					open 		= tdArray[1].innerText;
+					category 	= tdArray[2].innerText;
+					
+					var descArray = $('#hiddenData').find('.pf_text > div');
+					if(descArray.length > 0){						
+						description1 = descArray[0].innerText;
+						description1 = description1.replace('-',"");
+						
+						$('li').click(function(){
+							index = $("li.pf-list-item").index(this);
+							$('.pf-list-item').eq(index).find('.myToggle').html("<div class=\"tableArea\">    <table class=\"works\">      <colgroup>        <col>        <col>      </colgroup>      <tbody>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Client</li>            </ul>          </th>          <td>"+$.trim(client)+"</td>        </tr>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Open</li>            </ul>          </th>          <td>"+$.trim(open)+"</td>        </tr>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Category</li>            </ul>          </th>          <td>"+$.trim(category)+"</td>        </tr>      </tbody>    </table>  </div>  <ul class=\"pf_text list\">    <li>"+$.trim(description1)+"</li>	</ul>");
+						})
+						
+						if(descArray.length > 1){
+							description2 = descArray[1].innerText;
+							description2 = description2.replace('-',"");
+							
+							$('li').click(function(){
+								index = $("li.pf-list-item").index(this);
+								$('.pf-list-item').eq(index).find('.myToggle').html("<div class=\"tableArea\">    <table class=\"works\">      <colgroup>        <col>        <col>      </colgroup>      <tbody>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Client</li>            </ul>          </th>          <td>"+$.trim(client)+"</td>        </tr>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Open</li>            </ul>          </th>          <td>"+$.trim(open)+"</td>        </tr>        <tr>          <th>            <ul class=\"table-list-category list\">              <li>Category</li>            </ul>          </th>          <td>"+$.trim(category)+"</td>        </tr>      </tbody>    </table>  </div>  <ul class=\"pf_text list\">    <li>"+$.trim(description1)+"</li>	<li>"+$.trim(description2)+"</li>  </ul>");
+							})
+						}
+					}
+				})
+				
+			}//end if
+		}		
+	});	
+	
+}
+</script>
+<div id="hiddenData" style="display:none;"></div>
+</body>
+</html>

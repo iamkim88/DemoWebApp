@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../fonts/fontello.eot?43546731');
+  src: url('../fonts/fontello.eot?43546731#iefix') format('embedded-opentype'),
+       url('../fonts/fontello.woff2?43546731') format('woff2'),
+       url('../fonts/fontello.woff?43546731') format('woff'),
+       url('../fonts/fontello.ttf?43546731') format('truetype'),
+       url('../fonts/fontello.svg?43546731#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../fonts/fontello.svg?43546731#fontello') format('svg');
+  }
+}
+*/
+
+[class^="iconfont-"]:before, [class*=" iconfont-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
+.iconfont-apply:before { content: '\e800'; } /* '��' */
+.iconfont-company:before { content: '\e801'; } /* '�쟻' */
+.iconfont-location:before { content: '\e802'; } /* '�쟼' */
+.iconfont-menu:before { content: '\e803'; } /* '�쟽' */
+.iconfont-close:before { content: '\e804'; } /* '�쟾' */
+.iconfont-plus:before { content: '\e805'; } /* '�쟿' */
+.iconfont-facebook:before { content: '\f051'; } /* '�걨' */
+.iconfont-twitter:before { content: '\f057'; } /* '�걮' */
+
+
+

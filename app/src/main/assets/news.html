@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<title>TwoSonSoft</title>
+	<link rel="stylesheet" href="./css/custom.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+</head>
+<body onLoad="selNewsList();">
+	
+	<div id="wrap">
+		<!-- 왼쪽 사이드 메뉴 -->
+
+		<!-- 왼쪽 사이드 메뉴 //-->
+		
+		<div id="container">
+			<!-- HEADER -->
+			<header id="header">
+				<div class="wrap-header">
+					<a href="#" class="btn-all-menu"><span class="iconfont-menu"> </span></a>
+					<a href="/m/index.do" class="logo">두손소프트</a>	
+				</div>
+			</header>			
+			<!-- HEADER // -->
+			
+			<!-- SECTION -->
+			<section id="contents" class="news">
+				
+				<!-- VISUAL-->
+				<div class="visual">
+					<h1>NEWS</h1>
+					<h3>새로운 소식</h3>
+				</div>
+				<!-- VISUAL //-->
+
+				<!-- CONTENT -->
+				<div class="content">
+					<div id="selNewsList">
+						<ul id="newsListAllUl" class="list news-list">
+									
+						</ul>
+					</div>
+					<div class="more">
+						<div><a class="more_link">more +</a></div>
+					</div>
+				</div>				
+				<!-- CONTENT //-->
+
+			</section>
+			<!-- SECTION //-->
+			
+			<!-- FOOTER -->
+
+			<!-- FOOTER //-->
+
+		</div><!-- container -->
+		
+	</div><!-- wrap -->
+
+<!--  policy_layer_popup -->
+
+<!--  policy_layer_popup // -->
+
+<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#wrap").append($('<div>').load('nav_menu.html'));
+	});
+
+</script>
+<script type="text/javascript">
+	
+    var sNum = 0;
+    var startNum = 0;
+    	var ajaxUrl = '/news/selNewsList.do';
+    	
+	function selNewsList(){
+		$.ajax({
+       		type: 'POST',
+       		url: ajaxUrl,
+       		data: {'startNum':sNum},
+       		async: false,
+       		dataType: 'json',
+       		cache: false,
+       		success: function(obj){
+            	var newsDataList = obj.list;
+            	var appendData = "";
+            	
+            	var newsbClass = "";
+            	var newsbNo = "";
+            	var newsbTitle = "";
+            	var newsRegDate = "";
+            	var newsShortCont = "";
+            	var newsImage = "";
+            	var newsType = "";
+            	
+            	if(startNum <= 0){
+            		$('#newsListAllUl').empty();
+            	}
+            	
+            	if(newsDataList.length > 0){
+            		
+            		$.each(newsDataList, function(index, news){
+            			
+            			newsClass = news.bClass;
+            			newsNo = news.bNo;
+            			newsTitle = news.bTitle;
+            			newsRegDate = news.regDate;
+            			newsShortCont = news.shortCont;
+            			newsImage = news.titleImg;
+            			
+            			//2 = story, 3 = itnews
+            			if(newsImage.trim().length == '0'){
+            				if(newsClass == '2'){
+                				newsType = "[두손스토리]";
+                				newsImage = "../images/news_twosonstory.png";
+                			}else{
+               					newsType = "[IT NEWS]";
+               					newsImage = "../images/news_img__itnews.jpg";
+                			}
+            			}else{
+            				if(newsClass == '2'){
+            					newsType = "[두손스토리]";
+            				}else{
+            					newsType = "[IT NEWS]";
+            				}
+            			}
+             			
+            			appendData = appendData 
+            				+ '<li class="news01">'
+						+ '<a href="/m/news_sub01.do?menuType=' + newsClass + '&listNum=' + newsNo + '">'   
+						+ '<span class="img">'
+						+ '<img src="' + newsImage + '">'
+						+ '</span>'   
+						+ '<div class="text">'
+						+ '<dl>'
+						+ '<dt>' + newsType + " " + newsTitle  + '</dt>'
+						+ '</dl>'
+						+ '<p class="date">' + news.regDate + '</p>'
+						+ '</div>'
+						+ '</a>'
+						+ '</li>';			
+            			
+            		}) //end for
+           			
+            		$(appendData).appendTo('#newsListAllUl');
+            		
+            		startNum += 1;
+            		sNum = startNum * 6;
+            		
+            		$('div.more').empty();
+            		if(sNum<obj.cnt){
+            			$('<div onClick="selNewsList()"><a class="more_link">more + </a></div>').appendTo('div.more');
+            		}
+            	}//newsDataList.length end if
+       		}
+       });	 
+}
+        	
+</script>
+</body>
+</html>

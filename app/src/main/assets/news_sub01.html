@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<title>TwoSonSoft</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<link rel="stylesheet" href="../m/css/custom.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+	<link rel="shortcut icon" type="../m/image/x-icon" href="../m/img/favicon.png">
+</head>
+<body onLoad="selNewsOne(<%=menuType%>,<%=listNum%>);">
+	
+	<div id="wrap">
+		<!-- 왼쪽 사이드 메뉴 -->
+		<%@ include file="./include/nav_menu.html" %>
+		<!-- 왼쪽 사이드 메뉴 //-->
+		
+		<div id="container">
+			<!-- HEADER -->
+			<header id="header">
+				<div class="wrap-header">
+					<a href="#" class="btn-all-menu"><span class="iconfont-menu"> </span></a>
+					<a href="/m/index.do" class="logo">두손소프트</a>	
+				</div>
+			</header>			
+			<!-- HEADER // -->
+			<!-- SECTION -->
+			<section id="contents" class="news news_sub">
+				<!-- VISUAL-->
+				<div class="visual">
+					<h1>NEWS</h1>
+					<h3>새로운 소식</h3>
+				</div>
+				<!-- VISUAL //-->
+
+				<!-- CONTENT -->
+				<div class="content">
+					<div id="selNewsOne">
+						
+					</div>
+					<div class="back-to-list">
+						<div>
+							<a class="list_link" href="#">목록보기</a>
+						</div>
+					</div>
+				</div>
+				<!-- CONTENT //-->
+			</section>
+			<!-- SECTION //-->
+
+			<!-- FOOTER -->
+			<%@ include file="./include/footer.html" %>
+			<!-- FOOTER //-->
+
+		</div><!-- container -->
+		
+	</div><!-- wrap -->
+
+<!--  policy_layer_popup -->
+
+<!--  policy_layer_popup // -->
+
+<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	var ajaxUrl = '/news/selNewsOne.do';
+		
+	function selNewsOne(menuType, listNum){
+        	$.ajax({
+        		type: 'POST',
+        		url: ajaxUrl,
+        		data: {'menuType':menuType, 'listNum':listNum},
+        		async: false,
+        		dataType: 'json',
+        		cache: false,
+        		success: function(obj){
+				var newsData = obj.list;
+				var appendData = "";
+				
+				var newsClass = "";
+             	var newsTitle = "";
+             	var newsType = "";
+             	var newsContent = "";
+				
+				$('div#selNewsOne').empty();
+				
+				if(newsData.length>0){
+					$.each(newsData, function(index, news){
+						
+						newsTitle = news.bTitle;
+						newsClass = news.bClass;
+						newsContent = news.bContent;
+						newsContent = newsContent.replace(/&lt;/g,"<");
+						newsContent = newsContent.replace(/&gt;/g,">");
+						
+						if(newsClass == '2'){
+							newsType = "[두손스토리]";
+						}else{
+							newsType = "[IT NEWS]";
+						}
+						
+						appendData  = appendData
+							+ '<div class="news_sub01">'
+							+ '<h3>' + newsType + " " + newsTitle + '</h3>'
+							+ '<br>' + newsContent
+							+ '</div>';
+						
+					})//end for
+					
+					$(appendData).appendTo('div#selNewsOne');
+				}//newsData end if
+			}
+		});
+	}
+	
+</script>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<title>TwoSonSoft</title>
+	<link rel="stylesheet" href="./css/custom.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+</head>
+<body>
+	<div id="wrap">
+		<!-- 왼쪽 사이드 메뉴 -->
+
+		<!-- 왼쪽 사이드 메뉴 //-->
+		
+		<div id="container" style="background: #fff;">
+			<!-- HEADER -->
+			<header id="header">
+				<div class="wrap-header">
+					<a href="#" class="btn-all-menu"><span class="iconfont-menu"> </span></a>
+					<a href="/m/index.do" class="logo">두손소프트</a>	
+				</div>
+			</header>			
+			<!-- HEADER // -->
+			
+			<!-- SECTION -->
+			<section id="contents" class = "pilot">
+				
+				<!-- VISUAL-->
+				<div class="visual">
+					<h1>TS PILOT</h1>
+					<h3>베타 프로그램</h3>
+				</div>
+				<!-- VISUAL //-->
+
+				<!-- CONTENT -->
+				<div class="content">
+					<ul class="pilot-list">
+						<li class="cf">
+							<a href="/android_asset/pilot_fcnote.html">
+								<img src="./images/icon-note.svg" alt="TS Web FC Note" />
+								<div class="desc">
+									<h2>TS Web FC Note <span>arrow</span></h2>
+									<p><strong>Non-ActiveX, Non-Plugin</strong> <br /> 100% 웹 기반 필기 메모 컴포넌트</p>
+								</div>
+							</a>
+						</li>
+						<li class="cf gray">
+							<a href="/android_asset/pilot_floorsketch.html">
+								<img src="./images/icon-sketch.svg" alt="TS Web Floor Sketch" />
+								<div class="desc">
+									<h2>TS Web Floor Sketch <span>arrow</span></h2>
+									<p><strong>Non-ActiveX, Non-Plugin</strong> <br /> 100% 웹 기반 평면도 그리기 컴포넌트</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>				
+				<!-- CONTENT //-->
+
+			</section>
+			<!-- SECTION //-->
+			
+			<!-- FOOTER -->
+
+			<!-- FOOTER //-->
+
+		</div><!-- container -->
+		
+	</div><!-- wrap -->
+
+<!--  policy_layer_popup -->
+
+<!--  policy_layer_popup // -->
+
+<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#wrap").append($('<div>').load('nav_menu.html'));
+	});
+
+</script>
+
+<script>
+	$(document).ready(function(){
+		footerfixed();
+	});
+	
+	$(window).resize(function() {
+		footerfixed();
+	});
+	
+	function footerfixed(){
+		var h = $(window).height();
+		var container = $("#container").height();
+		if(container <= h){
+			$("#container").css('height',h);
+			$("#footer").addClass("fixed");
+		}else{
+			$("#container").css('height','auto')
+			$("#footer").removeClass("fixed");
+		}	
+	}	
+</script>
+</body>
+</html>

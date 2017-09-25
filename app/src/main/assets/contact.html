@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<title>TwoSonSoft</title>
+	<link rel="stylesheet" href="./css/custom.css" type="text/css"/>
+</head>
+<body onload="initialize();">
+	
+	<div id="wrap">
+		<!-- 왼쪽 사이드 메뉴 -->
+
+		<!-- 왼쪽 사이드 메뉴 //-->
+		
+		<div id="container">
+			<!-- HEADER -->
+			<header id="header">
+				<div class="wrap-header">
+					<a href="#" class="btn-all-menu"><span class="iconfont-menu"> </span></a>
+					<a href="/android_asset/index.html" class="logo">두손소프트</a>
+				</div>
+			</header>			
+			<!-- HEADER // -->
+			<!-- SECTION -->
+			<section id="contents" class="contact_us">
+				<!-- VISUAL-->
+				<div class="visual">
+					<h1>LOCATED THE MAP</h1>
+					<h3>찾아오시는 길</h3>
+					<div id="map_box">
+		          		<div id="map_canvas"> </div>
+		        	</div>
+				</div>
+				<!-- VISUAL //-->
+
+				<!-- CONTENT -->
+				<div class="content">
+					<div class="section">
+						<h4>CONTACT INFO</h4>
+						<div class="contact_info">
+							<ul>
+								<li class="address"><span> </span> <p>서울특별시 구로구 디지털로34길 27 <br/>대륭포스트타워3차 1008</p></li>
+								<li class="tel"><span> </span> <p>Tel. 02-3461-8686 / Fax. 070-8677-5460</p></li>
+								<li class="email"><span> </span> <p>twosonceo@gmail.com</p></li>
+							</ul>
+						</div>
+		          		<div class="contact">
+		          			<form id="frm" action="#" method="post" enctype="multipart/form-data">
+		          				<input id="m_name" name="m_name" type="text" placeholder="Your Name" maxlength="50">
+		          				<input id="m_email" name="m_email" type="email" placeholder="Your email" maxlength="50">
+		          				<textarea id="m_content" name="m_content" class="message" placeholder="Message"> </textarea>
+		          				<input type="submit" id="sendBtn" value="문의하기">
+		          			</form>
+		          		</div>
+		          </div>
+		        </div>				
+				<!-- CONTENT //-->
+			</section>
+			<!-- SECTION //-->
+
+			<!-- FOOTER -->
+
+			<!-- FOOTER //-->
+
+		</div><!-- container -->
+		
+	</div><!-- wrap -->
+	
+<!--  policy_layer_popup -->
+
+<!--  policy_layer_popup // -->
+
+<script src="./js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="./js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="./js/base.js"></script>
+<script src="./js/contact.js"></script>
+<script src="./js/jquery.vticker-min.js"></script>
+<script type="text/javascript" src="./js/jquery.form.js"></script>
+<script type="text/javascript">	
+	function initialize() {
+		var Y_point			= 37.485277;		// Y 좌표
+		var X_point			= 126.898134;		// X 좌표
+		var zoomLevel		= 17;						// 첫 로딩시 보일 지도의 확대 레벨
+		var markerTitle		= "두손소프트";				// 현재 위치 마커에 마우스를 올렸을때 나타나는 이름
+		var markerMaxWidth	= 300;						// 마커를 클릭했을때 나타나는 말풍선의 최대 크기
+		// 말풍선 내용
+		var contentString	= '<div id="content">' +
+		'<div id="siteNotice">' +
+		'</div>'+
+		'<h2 id="firstHeading" class="firstHeading">두손소프트</h2>'+
+		'</div>';
+		var myLatlng = new google.maps.LatLng(Y_point, X_point);
+		var mapOptions = {
+							zoom: zoomLevel,
+							center: myLatlng,
+							mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map,
+			title: markerTitle
+		});
+		var infowindow = new google.maps.InfoWindow(
+			{
+				content: contentString,
+				maxWidth: markerMaxWidth
+			}
+		);
+	
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.open(map, marker);
+		});
+	}
+</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#wrap").append($('<div>').load('nav_menu.html'));
+	});
+
+</script>
+
+</body>
+</html>
