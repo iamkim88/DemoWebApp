@@ -12,16 +12,10 @@ import android.support.annotation.NonNull;
  */
 
 public class NetworkStatus{
-    private Context context;
-
-    //네트워크 상태 생성자
-    NetworkStatus(Context context){
-        this.context = context;
-    }
 
     @NonNull
-        //리턴 값 Null 허용금지
-    Boolean isNetworkStatus(){
+//리턴 값 Null 허용금지
+    Boolean isNetworkStatus(Context context) {
         Boolean isConnect = false;
 
         ConnectivityManager manager = (ConnectivityManager)context.getSystemService(context.CONNECTIVITY_SERVICE);

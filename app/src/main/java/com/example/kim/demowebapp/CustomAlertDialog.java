@@ -10,18 +10,18 @@ import android.content.Context;
  */
 
 public class CustomAlertDialog extends Activity{
-    private Context context;
 
-    //생성자
-    CustomAlertDialog(Context context){
-        this.context = context;
-    }
-
-    //다이얼로그 생성 & 노출
-    void makeCustomDialog(String  message, String yBtn){
+    /**
+     * 알러트 다이얼로그 생성 메소드
+     *
+     * @param message
+     * @param okBtn
+     */
+    void makeCustomDialog(Context context, String message, String okBtn) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(message);
-            builder.setPositiveButton(yBtn, null);
-            builder.create().show();
+        builder.setMessage(message);
+        builder.setPositiveButton(okBtn, null);
+        builder.create().show();
     }
+
 }

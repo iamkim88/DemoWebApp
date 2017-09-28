@@ -10,16 +10,24 @@ import android.widget.Toast;
  */
 
 public class CustomToast extends Activity {
-    private Context context;
+    static private Toast toast;
 
-    //생성자
-    CustomToast(Context context) {
-        this.context = context;
+    /**
+     * 토스트 생성 메소드
+     *
+     * @param message
+     * @param duration
+     */
+    void showToast(Context context, String message, int duration) {
+        if (toast == null) {
+            toast = Toast.makeText(context, message, duration);
+        } else {
+            toast.setText(message);
+        }
+        toast.show();
     }
 
-    //토스트 노출
-    void makeCustomToast(String message, int length) {
-        Toast.makeText(context, message, length).show();
+    void noShowToast() {
+        toast.cancel();
     }
-
 }

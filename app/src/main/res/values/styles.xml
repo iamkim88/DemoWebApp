@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
+    <style name="Splash" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/splash3</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 
 </resources>

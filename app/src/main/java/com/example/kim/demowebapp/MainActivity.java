@@ -3,7 +3,6 @@ package com.example.kim.demowebapp;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -23,13 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        //네트워크 통신 점검
-        Boolean isConnect = new NetworkStatus(getApplicationContext()).isNetworkStatus();
-
-        if (isConnect == false) {
-            new CustomAlertDialog(this).makeCustomDialog("휴대폰의 인터넷 연결상태를 확인해주세요.", "확인");
-        }
-
         //크롬 웹뷰 디버깅 세팅
         WebView.setWebContentsDebuggingEnabled(true);
 
@@ -46,15 +38,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         demoWebView.setWebViewClient(new WebViewClient());
-
-        //첫번째 노출 페이지 세팅
         demoWebView.loadUrl("file:///android_asset/index.html");
+
     }
 
     @Override
     public void onBackPressed() {
-
-        new CustomToast(this).makeCustomToast("한번 더 클릭하면 종료됩니다.", 1);
+        new CustomToast().showToast(this, "한번 더 클릭하면 종료됩니다.", 1);
 
         //default 0L
         if (pressedTime == 0L) {
@@ -66,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 pressedTime = 0L;
             } else {
                 finish();
+                new CustomToast().noShowToast();
             }
         }
     }
