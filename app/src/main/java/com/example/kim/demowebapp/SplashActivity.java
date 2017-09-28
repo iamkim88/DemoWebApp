@@ -4,10 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ProgressBar;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by kim on 2017. 9. 26..
@@ -15,17 +11,10 @@ import butterknife.ButterKnife;
 
 public class SplashActivity extends Activity {
 
-    //버터나이프 뷰 선언
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
-
-        //버터나이프 애노테이션 사용선언
-        ButterKnife.bind(this);
 
         //네트워크 통신 점검
         Boolean isConnect = new NetworkStatus().isNetworkStatus(this);
